@@ -14,11 +14,11 @@ def type_of_loan_calculation(t: str, a: float, p: float, n: int, i: float) -> No
     :return: None
     """
     if t == "annuity":
-        if p is not None and n is not None:
+        if all((p, n)):
             a = creditcalc.calculation_of_annuity_payment(p, n, i)
-        elif a is not None and n is not None:
+        elif all((a, n)):
             p = creditcalc.calculation_of_loan_principal(a, n, i)
-        elif a is not None and p is not None:
+        elif all((a, p)):
             n = creditcalc.calculate_the_number_of_payments(a, p, i)
             creditcalc.calculation_of_the_period(n)
         else:
@@ -26,7 +26,7 @@ def type_of_loan_calculation(t: str, a: float, p: float, n: int, i: float) -> No
 
         creditcalc.calculating_overpayment(p, n, a)
 
-    elif t == "diff" and p is not None and n is not None:
+    elif t == "diff" and all((p, n)):
         creditcalc.calculating_differentiated_payments(p, n, i)  # overpayment is calculated separately
     else:
         checking_args()
